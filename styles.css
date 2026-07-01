@@ -353,8 +353,6 @@ main {
 .scroll-line-fill { position: absolute; top: 0; left: 50%; transform: translateX(-50%) scaleY(0); transform-origin: top center; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent 0%, rgba(212, 178, 140, 0.2) 40%, var(--accent) 100%); will-change: transform; }
 .scroll-dot { position: absolute; top: 0; left: 50%; transform: translate(-50%, 0); width: 7px; height: 7px; border-radius: 50%; background-color: var(--text); box-shadow: 0 0 12px 2px rgba(212, 178, 140, 0.4); z-index: 2; will-change: top; }
 
-.editorial-footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--muted); }
-
 /* Bookshelf */
 .books-shelf-viewport { width: 100%; position: relative; margin-top: 40px; padding-bottom: 20px; mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); }
 .books-shelf-track { display: flex; gap: 40px; overflow-x: auto; overflow-y: hidden; padding: 10px 24px 32px 24px; scrollbar-width: thin; scrollbar-color: rgba(212, 178, 140, 0.25) rgba(255, 255, 255, 0.02); }
@@ -680,7 +678,8 @@ p {
    ========================================================== */
 .editorial-footer {
   background-color: var(--bg, #1a1a1a);
-  padding: 10rem 2rem 4rem; /* Generous top breathing room to mimic the showcase image */
+  padding: 60px 0 4rem;
+  margin-top: 80px;
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -693,11 +692,10 @@ p {
   display: grid;
   /* 4-column layout: Left branding column gets double space (2 parts), others get 1 part */
   grid-template-columns: 2fr 1fr 1fr 1fr; 
-  gap: 4rem 2rem;
-  width: 100%;
-  max-width: 1200px;
+  gap: 3rem 2rem;
+  width: min(calc(100% - 48px), 840px);
   align-items: start;
-  margin-bottom: 8rem;
+  margin: 0 auto 4rem;
 }
 
 /* --- Brand Identity Column --- */
@@ -752,11 +750,11 @@ p {
 
 /* --- Baseline Copyright Layout --- */
 .footer-baseline {
-  width: 100%;
-  max-width: 1200px;
+  width: min(calc(100% - 48px), 840px);
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin: 0 auto;
 }
 
 .copyright-text {
@@ -774,24 +772,25 @@ p {
   .footer-matrix {
     /* Transition to 2-column layout on tablets */
     grid-template-columns: repeat(2, 1fr);
-    gap: 4rem;
+    gap: 2.5rem 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .editorial-footer {
-    padding: 6rem 1.5rem 3rem; /* Tighter padding adjustments for smaller mobile viewports */
+    padding: 40px 0 2rem;
+    margin-top: 60px;
   }
 
   .footer-matrix {
     /* Collapse down to a clean, single-column reading flow on smartphones */
     grid-template-columns: 1fr;
-    gap: 3rem;
-    margin-bottom: 5rem;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
   }
 
   .footer-identity {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   .footer-directory-col {
