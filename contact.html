@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact — Muhammad Hamza</title>
+  <title>Get In Touch — Muhammad Hamza</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,42 +48,43 @@
           <p class="body-essay">
             If you would like to open an academic inquiry or technical discussion, direct digital mailing routes are monitored daily. For longer, more structured notes, a secure ledger intake form is provided below.
           </p>
+<form class="editorial-form" action="https://formspree.io/f/xnjkbzyp" method="POST" id="contact-form">
+  <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off" />
 
-          <form class="editorial-form" action="https://formspree.io/f/xnjkbzyp" method="POST">
-            <div class="form-group-row">
-              <div class="form-group">
-                <label for="form-name">Name / Identity</label>
-                <input type="text" id="form-name" name="name" required placeholder="e.g., Alexander Wright">
-              </div>
-              <div class="form-group">
-                <label for="form-email">EMail</label>
-                <input type="email" id="form-email" name="_replyto" required placeholder="e.g., alexander@domain.com">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="form-subject">Subject of Inquiry</label>
-              <input type="text" id="form-subject" name="subject" required placeholder="e.g., Academic Inquiry / Project Proposal">
-            </div>
+  <div class="form-group-row">
+    <div class="form-group">
+      <label for="form-name">Name / Identity</label>
+      <input type="text" id="form-name" name="name" required minlength="2" autocomplete="name" placeholder="e.g., Alexander Wright">
+    </div>
+    <div class="form-group">
+      <label for="form-email">EMail</label>
+      <input type="email" id="form-email" name="_replyto" required autocomplete="email" placeholder="e.g., alexander@domain.com">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="form-subject">Subject of Inquiry</label>
+    <input type="text" id="form-subject" name="subject" required minlength="4" placeholder="e.g., Academic Inquiry / Project Proposal">
+  </div>
 
-            <div class="form-group">
-              <label for="form-message">The Transcript / Message</label>
-              <textarea id="form-message" name="message" rows="5" required placeholder="Write your continuous note here..."></textarea>
-            </div>
+  <div class="form-group">
+    <label for="form-message">The Transcript / Message</label>
+    <textarea id="form-message" name="message" rows="5" required minlength="10" placeholder="Write your continuous note here..."></textarea>
+  </div>
 
-            <button type="submit" class="form-submit-btn">
-              <span>Commit to Ledger</span>
-            </button>
-            
-            <div class="form-feedback">
-              <div class="form-loading">
-                <span>Sending inquiry...</span>
-              </div>
-              <div class="form-success">
-                ✓ Inquiry received. I'll be in touch soon.
-              </div>
-            </div>
-          </form>
+  <button type="submit" class="form-submit-btn">
+    <span>Commit to Ledger</span>
+  </button>
+  
+  <div class="form-feedback">
+    <div class="form-loading">
+      <span>Sending inquiry...</span>
+    </div>
+    <div class="form-success">
+      ✓ Inquiry received. I'll be in touch soon.
+    </div>
+  </div>
+</form>
           
           </div>
 
