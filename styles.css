@@ -351,7 +351,12 @@ main {
 .scroll-track { position: relative; width: 2px; flex-shrink: 0; margin-top: 8px; margin-bottom: 24px; }
 .scroll-line-bg { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100%; background-color: rgba(255, 255, 255, 0.06); }
 .scroll-line-fill { position: absolute; top: 0; left: 50%; transform: translateX(-50%) scaleY(0); transform-origin: top center; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent 0%, rgba(212, 178, 140, 0.2) 40%, var(--accent) 100%); will-change: transform; }
-.scroll-dot { position: absolute; top: 0; left: 50%; transform: translate(-50%, 0); width: 7px; height: 7px; border-radius: 50%; background-color: var(--text); box-shadow: 0 0 12px 2px rgba(212, 178, 140, 0.4); z-index: 2; will-change: top; }
+.scroll-dot { position: absolute; top: 0; left: 50%; transform: translate(-50%, 0); width: 7px; height: 7px; border-radius: 50%; background-color: var(--text); box-shadow: 0 0 12px 2px rgba(212, 178, 140, 0.4); z-index: 2; will-change: top; outline: none; }
+.scroll-dot:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 768px) {
+  .scroll-dot { width: 12px; height: 12px; transform: translate(-50%, -50%); }
+}
 
 /* Bookshelf */
 .books-shelf-viewport { width: 100%; position: relative; margin-top: 40px; padding-bottom: 20px; mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); }
@@ -361,7 +366,8 @@ main {
 .books-shelf-track::-webkit-scrollbar-thumb { background: rgba(212, 178, 140, 0.25); border-radius: 4px; }
 .books-shelf-track::-webkit-scrollbar-thumb:hover { background: var(--accent); box-shadow: 0 0 10px rgba(212, 178, 140, 0.4); }
 
-.book-card { display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; width: 130px; flex-shrink: 0; color: inherit; cursor: pointer; position: relative; }
+.book-card { display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; width: 130px; flex-shrink: 0; color: inherit; cursor: pointer; position: relative; outline: none; }
+.book-card:focus-visible .book-cover { outline: 2px solid var(--accent); outline-offset: 4px; }
 .book-cover { height: 190px; width: 130px; object-fit: cover; background-color: #0d0d0d; filter: grayscale(40%) contrast(0.9) brightness(0.65); opacity: 0.85; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8); transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), filter 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.6s cubic-bezier(0.19, 1, 0.22, 1); }
 .book-title { font-family: "Cormorant Garamond", serif; font-size: 1.1rem; font-style: italic; color: var(--muted); opacity: 0.75; transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), color 0.4s ease, opacity 0.4s ease; }
 
@@ -381,7 +387,7 @@ html.lenis, html.lenis body { height: auto; }
 @media (max-width: 768px) {
   .editorial-container { margin-top: 90px; padding-top: 0; }
   .editorial-header { padding: 16px 0 8px 0; gap: 4px; }
-  .name-title { font-size: 1.6rem; }
+  .name-title { font-size: 2rem; }
   .editorial-nav { width: 100%; gap: 16px; font-size: 0.75rem; padding-bottom: 4px; }
   .editorial-nav a { padding: 2px 8px; }
   .editorial-hero-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -473,6 +479,12 @@ html.lenis, html.lenis body { height: auto; }
   font-weight: 500;
 }
 
+@media (max-width: 768px) {
+  .form-group label {
+    font-size: 0.85rem;
+  }
+}
+
 .form-group input,
 .form-group textarea {
   background: transparent;
@@ -558,8 +570,93 @@ html.lenis, html.lenis body { height: auto; }
   transform-origin: top center;
 }
 
+.form-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Form Feedback Messages */
+.form-feedback {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  margin-top: 16px;
+  min-height: 20px;
+}
+
+.form-loading {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+}
+
+.form-loading.active {
+  display: flex;
+}
+
+.form-loading::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(212, 178, 140, 0.3);
+  border-top: 2px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.form-success {
+  display: none;
+  color: var(--editorial-highlight);
+}
+
+.form-success.active {
+  display: block;
+}
+
+/* Toast Notification */
+.toast-notification {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 12px 20px;
+  background-color: rgba(26, 26, 26, 0.95);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10000;
+  max-width: 300px;
+  border-radius: 2px;
+}
+
+.toast-notification.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .toast-notification {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    max-width: none;
+  }
+}
+
 .form-submit-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
+  background-color: rgba(212, 178, 140, 0.1);
 }
 
 /* Contact Channels / Socials Grid */
@@ -736,7 +833,7 @@ p {
 .directory-link {
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
-  color: var(--muted, rgba(255, 255, 255, 0.6));
+  color: var(--text);
   text-decoration: none;
   transition: color 0.35s cubic-bezier(0.25, 1, 0.5, 1);
   display: inline-block;

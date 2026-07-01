@@ -99,12 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --------------------------------------------------------
-    // 2. High-Tension Smart Reveal Sticky Header (BUG REPAIRED)
+    // 2. High-Tension Smart Reveal Sticky Header (IMPROVED)
     // --------------------------------------------------------
     const stickyHeader = document.querySelector('.editorial-header');
     
     if (stickyHeader) {
-      let isHeaderVisible = true; // State tracker prevents frame-choking animation spam
+      let isHeaderVisible = true;
 
       ScrollTrigger.create({
         start: 'top top',
@@ -112,23 +112,20 @@ document.addEventListener('DOMContentLoaded', () => {
         onUpdate: (self) => {
           const currentScroll = self.scroll();
 
-          // Safety Lock: Always guarantee full visibility within 100px of top
           if (currentScroll <= 100) {
             if (!isHeaderVisible) {
-              gsap.to(stickyHeader, { yPercent: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+              gsap.to(stickyHeader, { yPercent: 0, duration: 0.3, ease: 'power3.out', overwrite: 'auto' });
               isHeaderVisible = true;
             }
             return;
           }
           
-          // Downward Scroll -> Hide header cleanly once
           if (self.direction === 1 && isHeaderVisible) { 
             gsap.to(stickyHeader, { yPercent: -100, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
             isHeaderVisible = false;
           } 
-          // Upward Scroll -> Reveal header cleanly once
           else if (self.direction === -1 && !isHeaderVisible) { 
-            gsap.to(stickyHeader, { yPercent: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+            gsap.to(stickyHeader, { yPercent: 0, duration: 0.3, ease: 'power3.out', overwrite: 'auto' });
             isHeaderVisible = true;
           }
         }
@@ -160,13 +157,13 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinks.forEach(link => {
         link.addEventListener('mouseenter', () => {
           moveMarkerTo(link, 0.4, 'power2.out');
-          gsap.to(Array.from(navLinks).filter(item => item !== link), { opacity: 0.35, duration: 0.4, ease: 'power2.out' });
+          gsap.to(Array.from(navLinks).filter(item => item !== link), { opacity: 0.5, duration: 0.4, ease: 'power2.out' });
           gsap.to(link, { color: 'var(--text)', opacity: 1, duration: 0.3 });
         });
 
         link.addEventListener('touchstart', () => {
           moveMarkerTo(link, 0.25, 'power1.out');
-          gsap.to(Array.from(navLinks).filter(item => item !== link), { opacity: 0.25, duration: 0.2, ease: 'power1.out' });
+          gsap.to(Array.from(navLinks).filter(item => item !== link), { opacity: 0.5, duration: 0.2, ease: 'power1.out' });
           gsap.to(link, { color: 'var(--accent)', opacity: 1, duration: 0.2 });
         }, { passive: true });
       });
@@ -284,9 +281,43 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --------------------------------------------------------
-// 8. Clipboard Micro-Interaction Utility
+// 9. Form Submission Feedback
 // --------------------------------------------------------
-document.addEventListener("DOMContentLoaded", () => {
+const editorialForm = document.querySelector('.editorial-form');
+if (editorialForm) {
+  const submitBtn = editorialForm.querySelector('.form-submit-btn');
+  const formFeedback = editorialForm.querySelector('.form-feedback');
+  const formLoading = editorialForm.querySelector('.form-loading');
+  const formSuccess = editorialForm.querySelector('.form-success');
+  
+  editorialForm.addEventListener('submit', (e) => {
+    submitBtn.disabled = true;
+    if (formLoading) formLoading.classList.add('active');
+    if (formSuccess) formSuccess.classList.remove('active');
+  });
+}
+
+// --------------------------------------------------------
+// 10. Toast Notification System
+// --------------------------------------------------------
+function showToast(message, duration = 2000) {
+  let toast = document.querySelector('.toast-notification');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.classList.add('toast-notification');
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.classList.add('active');
+  setTimeout(() => {
+    toast.classList.remove('active');
+  }, duration);
+}
+
+// --------------------------------------------------------
+// 11. Enhanced Email Copy with Toast
+// --------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
   const emailLink = document.querySelector('.copy-email');
   
   if (emailLink) {
@@ -296,50 +327,31 @@ document.addEventListener("DOMContentLoaded", () => {
       const emailText = emailLink.getAttribute('href').replace('mailto:', '').trim();
       
       navigator.clipboard.writeText(emailText).then(() => {
-        const label = emailLink.closest('.footer-directory-col').querySelector('.directory-label'); 
-        if (!label) return;
-        
-        const originalText = label.textContent;
-        const tl = gsap.timeline();
-        
-        tl.to(label, {
-          opacity: 0,
-          y: -4,
-          duration: 0.15,
-          ease: "power2.in",
-          onComplete: () => {
-            label.textContent = "Copied to Clipboard";
-          }
-        })
-        .to(label, {
-          opacity: 0.8, 
-          y: 0,
-          duration: 0.2,
-          ease: "power2.out"
-        })
-        .to(label, {
-          opacity: 0,
-          y: 4,
-          duration: 0.15,
-          delay: 2.0, 
-          ease: "power2.in",
-          onComplete: () => {
-            label.textContent = originalText;
-          }
-        })
-        .to(label, {
-          opacity: 1, // 1. Set opacity back to 1 so it doesn't compound with your CSS rgba
-          y: 0,
-          duration: 0.2,
-          ease: "power2.out",
-          clearProps: "opacity,transform" // 2. Cleanly strips GSAP's inline styles when done
-        });
-        
-      }).catch(err => {
-        window.location.href = emailLink.getAttribute('href');
+        showToast('✓ Email copied to clipboard');
+      }).catch(() => {
+        showToast('✗ Failed to copy email');
       });
     });
   }
+  
+  // Keyboard navigation for book shelf
+  const bookCards = document.querySelectorAll('.book-card');
+  bookCards.forEach((card, index) => {
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const link = card.querySelector('a');
+        if (link) link.click();
+      }
+    });
+  });
+  
+  // Keyboard scroll hints for timeline
+  const timelineRows = document.querySelectorAll('.timeline-row');
+  timelineRows.forEach(row => {
+    row.setAttribute('tabindex', '0');
+  });
 });
 
 // --------------------------------------------------------
