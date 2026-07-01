@@ -353,7 +353,7 @@ main {
 .scroll-line-fill { position: absolute; top: 0; left: 50%; transform: translateX(-50%) scaleY(0); transform-origin: top center; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent 0%, rgba(212, 178, 140, 0.2) 40%, var(--accent) 100%); will-change: transform; }
 .scroll-dot { position: absolute; top: 0; left: 50%; transform: translate(-50%, 0); width: 7px; height: 7px; border-radius: 50%; background-color: var(--text); box-shadow: 0 0 12px 2px rgba(212, 178, 140, 0.4); z-index: 2; will-change: top; }
 
-.editorial-footer { margin-top: 160px; padding-top: 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--muted); }
+.editorial-footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--muted); }
 
 /* Bookshelf */
 .books-shelf-viewport { width: 100%; position: relative; margin-top: 40px; padding-bottom: 20px; mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); }
