@@ -1,0 +1,800 @@
+/* ==========================================================
+   Editorial Atmosphere
+   Quiet • Architectural • Timeless
+   ========================================================== */
+
+:root {
+  --bg: rgb(26, 26, 26);          /* Deep charcoal black */
+  --text: #f4f1ea;       /* Premium vintage book cream */
+  --muted: #8e897d;      /* Low-contrast editorial warm grey */
+  --accent: #d4b28c;     /* Muted bronze / gold text ink */
+  --editorial-highlight: #7c8c68; /* Low-saturation organic green highlight */
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'EB Garamond', 'Adobe Caslon Pro', Georgia, serif;
+  --max-width: 840px;    
+}
+
+/* ==========================================================
+   Custom Editorial Text Selection 
+   ========================================================== */
+::selection {
+  background-color: rgba(212, 178, 140, 0.25); /* Monastic Bronze Tint Example */
+  color: #ffffff;
+}
+
+/* Safari specific styling path safety */
+::-webkit-selection {
+  background-color: rgba(212, 178, 140, 0.25);
+  color: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   UI Layout Selection Prevention (Preserves Specificity)
+   ========================================================== */
+
+/* 1. Global Safety Reset: Target operational and interactive frames */
+.editorial-header,
+.editorial-footer,
+.form-submit-btn,
+.no-select,
+nav,
+a, 
+button {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+/Edge */
+  user-select: none;         /* Standard syntax */
+}
+
+/* 2. Explicit Override: Force content fields to remain fully interactive */
+.body-essay,
+.hero-statement,
+p,
+span:not(.ink-word):not(.ink-char),
+article {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* --------------------------------------------------------
+   Cinematic Page Transition (The Curtain)
+   -------------------------------------------------------- */
+.page-transition-curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg); 
+  z-index: 999999; 
+  transform-origin: top center;
+  pointer-events: none; 
+  transform: scaleY(1); 
+  will-change: transform;
+}
+
+/* --------------------------------------------------------
+   Custom Viewport Experience
+   -------------------------------------------------------- */
+html {
+  background-color: var(--bg);
+  scrollbar-width: none; 
+}
+
+html::-webkit-scrollbar {
+  display: none; 
+}
+
+/* Architectural Edge Rail */
+.viewport-scroll-rail {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 5px; 
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.03); 
+  z-index: 9998;
+  pointer-events: none; 
+}
+
+.viewport-scroll-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--accent) 0%, var(--editorial-highlight) 100%);
+  transform-origin: top center;
+  transform: scaleY(0); 
+  will-change: transform;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  line-height: 1.8;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Strip browser default styling from links */
+a, a:visited, a:hover, a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --- Master Grid Restraint (GSAP Fixed Margin) --- */
+.editorial-container {
+  width: min(calc(100% - 48px), var(--max-width));
+  margin: 180px auto 120px; 
+  padding: 0;
+}
+
+/* --------------------------------------------------------
+   High-Tension Sticky Header Architecture
+   -------------------------------------------------------- */
+.editorial-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 0 12px 0; 
+  z-index: 1000;
+  background-color: rgba(26, 26, 26, 0.85); 
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04); 
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  gap: 12px; 
+  will-change: transform;
+}
+
+.name-title {
+  font-family: var(--font-display);
+  font-size: 3.1rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1; 
+  text-align: center;
+}
+
+/* --------------------------------------------------------
+   Navigation & Ledger Rule Setup
+   -------------------------------------------------------- */
+.editorial-nav {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 4px; 
+  width: max-content;
+}
+
+.editorial-nav a {
+  color: var(--muted);
+  will-change: opacity, color; 
+  transition: color 0.3s ease;
+}
+
+.editorial-nav .active-page {
+  color: var(--text);
+  opacity: 1;
+}
+
+.nav-ledger-marker {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background-color: var(--accent);
+  width: 0px;
+  pointer-events: none;
+  transform-origin: left center;
+  will-change: transform, width;
+}
+
+/* --------------------------------------------------------
+   Narrative Main Engine Spacing
+   -------------------------------------------------------- */
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 160px;
+}
+
+.editorial-hero-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.hero-visual-frame {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background-color: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-image {
+  width: 100%;          /* Forces the image to adapt to the fluid grid container */
+  height: 100%;         /* Spans the full height of the grid cell */
+  object-fit: cover;    /* Crucial: Prevents stretching/distortion by cropping cleanly */
+  object-position: center; 
+  display: block;
+}
+
+.portrait-img-raw {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+  display: block;
+  filter: grayscale(15%) contrast(1.03);
+}
+
+.hero-visual-frame:hover .portrait-img-raw {
+  filter: grayscale(0%) contrast(1.05);
+}
+
+.hero-prose-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.hero-statement {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--text);
+  margin: 0 0 8px 0;
+}
+
+.body-essay {
+  font-family: var(--font-display);
+  font-size: 1.48rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #ded9cd;
+  margin: 0;
+  max-width: 60ch;
+}
+
+.editorial-emphasis {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--text); 
+}
+
+.highlight-link { color: var(--editorial-highlight); }
+.text-link, .inline-underline, .highlight-link {
+  position: relative;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  padding-bottom: 2px;
+}
+.text-link::after, .inline-underline::after, .highlight-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.text-link::after { transform: scaleX(0); transform-origin: right center; }
+.text-link:hover::after { transform: scaleX(1); transform-origin: left center; }
+.inline-underline::after, .highlight-link::after { transform: scaleX(1); transform-origin: left center; }
+.inline-underline::after { background-color: var(--accent); }
+.highlight-link::after { background-color: rgba(124, 140, 104, 0.6); }
+.inline-underline:hover::after, .highlight-link:hover::after { transform: scaleX(0); transform-origin: right center; }
+
+.narrative-actions { display: flex; align-items: center; gap: 14px; font-size: 0.95rem; margin-top: 4px; }
+.text-link:hover ~ .divider { color: var(--accent); transition: color 0.6s ease; }
+.accent-link { color: var(--accent); }
+.divider { color: rgba(255, 255, 255, 0.15); font-size: 0.85rem; }
+
+.metadata-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 16px;
+}
+
+.editorial-section { display: flex; flex-direction: column; gap: 24px; }
+.section-label { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); }
+.section-title { font-family: var(--font-display); font-size: 2.3rem; font-weight: 400; line-height: 1.2; margin: 0 0 12px 0; }
+.section-content { display: flex; flex-direction: column; gap: 28px; }
+
+/* --------------------------------------------------------
+   Scrollytelling Path & Timelines
+   -------------------------------------------------------- */
+.narrative-timeline { display: flex; flex-direction: column; gap: 40px; }
+.timeline-row { display: flex; flex-direction: column; gap: 10px; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); transition: border-bottom-color 0.4s ease; }
+.timeline-row:hover { border-bottom-color: rgba(212, 178, 140, 0.2); }
+.timeline-meta { font-size: 0.85rem; color: var(--accent); letter-spacing: 0.02em; }
+.timeline-body { font-family: var(--font-display); font-size: 1.4rem; color: #ded9cd; margin: 0; }
+
+.timeline-scroll-wrapper {
+  position: relative;
+  display: flex;
+  gap: 40px;
+  top: 0;
+  height: 100%;
+}
+.timeline-scroll-wrapper .narrative-timeline { flex: 1; }
+
+.scroll-track { position: relative; width: 2px; flex-shrink: 0; margin-top: 8px; margin-bottom: 24px; }
+.scroll-line-bg { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100%; background-color: rgba(255, 255, 255, 0.06); }
+.scroll-line-fill { position: absolute; top: 0; left: 50%; transform: translateX(-50%) scaleY(0); transform-origin: top center; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent 0%, rgba(212, 178, 140, 0.2) 40%, var(--accent) 100%); will-change: transform; }
+.scroll-dot { position: absolute; top: 0; left: 50%; transform: translate(-50%, 0); width: 7px; height: 7px; border-radius: 50%; background-color: var(--text); box-shadow: 0 0 12px 2px rgba(212, 178, 140, 0.4); z-index: 2; will-change: top; }
+
+.editorial-footer { margin-top: 160px; padding-top: 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--muted); }
+
+/* Bookshelf */
+.books-shelf-viewport { width: 100%; position: relative; margin-top: 40px; padding-bottom: 20px; mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); }
+.books-shelf-track { display: flex; gap: 40px; overflow-x: auto; overflow-y: hidden; padding: 10px 24px 32px 24px; scrollbar-width: thin; scrollbar-color: rgba(212, 178, 140, 0.25) rgba(255, 255, 255, 0.02); }
+.books-shelf-track::-webkit-scrollbar { height: 3px; }
+.books-shelf-track::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 4px; margin: 0 40px; }
+.books-shelf-track::-webkit-scrollbar-thumb { background: rgba(212, 178, 140, 0.25); border-radius: 4px; }
+.books-shelf-track::-webkit-scrollbar-thumb:hover { background: var(--accent); box-shadow: 0 0 10px rgba(212, 178, 140, 0.4); }
+
+.book-card { display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; width: 130px; flex-shrink: 0; color: inherit; cursor: pointer; position: relative; }
+.book-cover { height: 190px; width: 130px; object-fit: cover; background-color: #0d0d0d; filter: grayscale(40%) contrast(0.9) brightness(0.65); opacity: 0.85; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8); transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), filter 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.6s cubic-bezier(0.19, 1, 0.22, 1); }
+.book-title { font-family: "Cormorant Garamond", serif; font-size: 1.1rem; font-style: italic; color: var(--muted); opacity: 0.75; transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), color 0.4s ease, opacity 0.4s ease; }
+
+.books-shelf-track:hover .book-cover { filter: grayscale(50%) contrast(0.9) brightness(0.5); opacity: 0.7; }
+.books-shelf-track:hover .book-title { opacity: 0.5; }
+.books-shelf-track .book-card:hover .book-cover { transform: translateY(-8px) scale(1.03); filter: grayscale(0%) contrast(1.05) brightness(1); opacity: 1; box-shadow: 0 22px 44px rgba(0, 0, 0, 0.6), 0 0 24px rgba(212, 178, 140, 0.25); }
+.books-shelf-track .book-card:hover .book-title { transform: translateY(-4px); color: var(--accent); opacity: 1; }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ==========================================================
+   Responsive Viewport Balancing (Mobile High-Tension)
+   ========================================================== */
+@media (max-width: 768px) {
+  .editorial-container { margin-top: 90px; padding-top: 0; }
+  .editorial-header { padding: 16px 0 8px 0; gap: 4px; }
+  .name-title { font-size: 1.6rem; }
+  .editorial-nav { width: 100%; gap: 16px; font-size: 0.75rem; padding-bottom: 4px; }
+  .editorial-nav a { padding: 2px 8px; }
+  .editorial-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .books-shelf-viewport { mask-image: none; -webkit-mask-image: none; }
+  .books-shelf-track { gap: 28px; padding: 0 16px; }
+  .book-card { width: 115px; }
+  .book-cover { height: 165px; width: 115px; }
+  .book-title { font-size: 1rem; }
+  .timeline-scroll-wrapper { gap: 24px; top: 0; height: 100%; }
+}
+
+/* --------------------------------------------------------
+   Editorial Lists (Work & Academics Fix)
+   -------------------------------------------------------- */
+.section-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-content li {
+  font-family: var(--font-display);
+  font-size: 1.48rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #ded9cd;
+  position: relative;
+  padding-left: 24px;
+}
+
+/* Custom architectural bullet point */
+.section-content li::before {
+  content: '•'; 
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+/* Soften the bold tags to match the premium cream text */
+.section-content li strong {
+  color: var(--text);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ==========================================================
+   Architectural Ledger Form Aesthetics
+   ========================================================== */
+
+.editorial-form {
+  margin: 32px 0 48px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.form-group-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .form-group-row {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.form-group label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 0;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  outline: none;
+  border-radius: 0;
+  transition: border-color 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.form-group textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* Custom Print-Ink Style Placeholders */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.15);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+/* Dynamic Focus Engine */
+.form-group input:focus::placeholder,
+.form-group textarea:focus::placeholder {
+  color: rgba(255, 255, 255, 0.03);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-bottom-color: var(--accent);
+}
+
+/* High-Tension Minimal Submission Block Button */
+.form-submit-btn {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid rgba(212, 178, 140, 0.3);
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 14px 32px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.5s cubic-bezier(0.19, 1, 0.22, 1), 
+              border-color 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+              transform 0.3s ease;
+}
+
+.form-submit-btn:hover {
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.form-submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--text);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  z-index: -1;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.form-submit-btn:hover::before {
+  transform: scaleY(1);
+  transform-origin: top center;
+}
+
+.form-submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* Contact Channels / Socials Grid */
+.contact-channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08); /* Or matching your text color with low opacity */
+}
+
+.channel-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.channel-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+}
+
+.contact-channels .text-link {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, opacity 0.3s ease;
+  width: fit-content;
+}
+
+.contact-channels .text-link:hover {
+  border-bottom-color: currentColor;
+  opacity: 0.8;
+}
+
+/* Responsive adjustment for small Viewports */
+@media (max-width: 600px) {
+  .contact-channels {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ==========================================================
+   Monotype Ink-Settling Effect
+   ========================================================== */
+.ink-reveal {
+  position: relative;
+  /* Prevent screen readers from reading the individual spans */
+  /* The JS will handle the ARIA attributes to keep it accessible */
+}
+
+/* Mobile viewports: Text loads as normal, static, perfectly legible prose */
+.ink-word {
+  display: inline-block;
+}
+
+/* Desktop viewports: Prepare elements for the hardware-accelerated ink settling reveal */
+@media (min-width: 769px) {
+  .ink-char {
+    display: inline-block;
+    opacity: 0.08; /* The ghostly structural hint */
+    color: var(--muted);
+    filter: blur(4px);
+    will-change: opacity, transform;
+  }
+}
+
+.ink-word, .ink-char {
+  display: inline-block;
+  /* Tell the graphics card to prepare these properties on a separate composition layer */
+  will-change: opacity, transform; 
+}
+
+/* ==========================================================
+   Isolated UI Layout Selection Protection
+   ========================================================== */
+
+/* 1. Target structural layout frames without overriding typography classes */
+.editorial-header,
+.name-title,
+.editorial-nav,
+.editorial-footer,
+.form-submit-btn,
+.section-label,
+.metadata-row,
+.viewport-scroll-rail,
+a, 
+button {
+  -webkit-user-select: none !important; /* Safari */
+  -moz-user-select: none !important;    /* Firefox */
+  -ms-user-select: none !important;     /* IE10+/Edge */
+  user-select: none !important;         /* Standard syntax */
+}
+
+/* 2. Lock text content blocks as explicitly selectable */
+.hero-statement,
+.body-essay,
+.timeline-body,
+.section-content li,
+p {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+/* ==========================================================
+   Asymmetric Multi-Column Footer System
+   ========================================================== */
+.editorial-footer {
+  background-color: var(--bg, #1a1a1a);
+  padding: 10rem 2rem 4rem; /* Generous top breathing room to mimic the showcase image */
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-matrix {
+  display: grid;
+  /* 4-column layout: Left branding column gets double space (2 parts), others get 1 part */
+  grid-template-columns: 2fr 1fr 1fr 1fr; 
+  gap: 4rem 2rem;
+  width: 100%;
+  max-width: 1200px;
+  align-items: start;
+  margin-bottom: 8rem;
+}
+
+/* --- Brand Identity Column --- */
+.footer-identity {
+  font-family: 'EB Garamond', serif;
+  font-size: 2.5rem; /* Large, crisp branding presence */
+  font-weight: 400;
+  color: var(--text, #f4f1ea);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* --- Directory Alignment Rails --- */
+.footer-directory-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.directory-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.3); /* Understated, modern label tone */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.directory-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Clean vertical spacing between menu links */
+}
+
+.directory-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--muted, rgba(255, 255, 255, 0.6));
+  text-decoration: none;
+  transition: color 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Thematic Interaction State */
+.directory-link:hover {
+  color: var(--accent, #d4b28c); /* Shifts to your signature vintage bronze on hover */
+}
+
+/* --- Baseline Copyright Layout --- */
+.footer-baseline {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.copyright-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+/* ==========================================================
+   Responsive Adaptation Matrix (Mobile and Tablets)
+   ========================================================== */
+@media (max-width: 1024px) {
+  .footer-matrix {
+    /* Transition to 2-column layout on tablets */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .editorial-footer {
+    padding: 6rem 1.5rem 3rem; /* Tighter padding adjustments for smaller mobile viewports */
+  }
+
+  .footer-matrix {
+    /* Collapse down to a clean, single-column reading flow on smartphones */
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 5rem;
+  }
+
+  .footer-identity {
+    font-size: 2rem;
+  }
+  
+  .footer-directory-col {
+    gap: 1rem;
+  }
+}
